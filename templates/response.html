@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+         body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            background-image: url('/static/background.jpg'); /* Add background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.5); /* Increased transparency */
+            padding: 1rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 40px; /* Adjust the size as needed */
+            margin-right: 0.5rem;
+        }
+
+        .navbar a {
+            color: white; /* Change all links to white */
+            text-decoration: none;
+            padding: 1rem 1.5rem; /* Increased padding for larger link size */
+            font-size: 1.3rem; /* Increased font size for better visibility */
+            font-weight: bold; /* Make the text bold */
+            transition: background-color 0.3s, color 0.3s; /* Transition effect */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+            color: #fff; /* White text on hover */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007BFF;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Main Container -->
+	 <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="/static/ProjectLogo.jpeg" alt="Health Center Logo">
+            <a href="#">Health Center</a>
+        </div>
+        <div class="nav-links">
+            <a href="http://localhost:5002/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Results</h1>
+
+        <!-- Display disease information in a table -->
+        {% if predicted_disease %}
+            <table>
+                <tr>
+                    <th>Disease Name</th>
+                    <td>{{ predicted_disease['Disease Name'] }}</td>
+                </tr>
+                <tr>
+                    <th>Severity Level</th>
+                    <td>{{ predicted_disease['Severity Level'] }}</td>
+                </tr>
+                <tr>
+                    <th>Symptoms</th>
+                    <td>{{ predicted_disease['Symptoms'] }}</td>
+                </tr>
+                <tr>
+                    <th>Recommended Medications</th>
+                    <td>{{ predicted_disease['Recommended Medications'] }}</td>
+                </tr>
+                <tr>
+                    <th>Required Food</th>
+                    <td>{{ predicted_disease['Required Food'] }}</td>
+                </tr>
+                <tr>
+                    <th>Safety Precautions</th>
+                    <td>{{ predicted_disease['Safety Precautions'] }}</td>
+                </tr>
+                <tr>
+                    <th>Recommended Doctor</th>
+                    <td>{{ predicted_disease['Recommended Doctor'] }}</td>
+                </tr>
+                <tr>
+                    <th>Treatment Plan</th>
+                    <td>{{ predicted_disease['Treatment Plan'] }}</td>
+                </tr>
+                <tr>
+                    <th>Follow-Up Recommendations</th>
+                    <td>{{ predicted_disease['Follow-Up Recommendations'] }}</td>
+                </tr>
+                <tr>
+                    <th>Patient Education</th>
+                    <td>{{ predicted_disease['Patient Education'] }}</td>
+                </tr>
+                <tr>
+                    <th>Recovery Time</th>
+                    <td>{{ predicted_disease['Recovery Time'] }}</td>
+                </tr>
+            </table>
+        {% elif message %}
+            <div class="message">{{ message }}</div>
+        {% else %}
+            <p>No disease information available.</p>
+        {% endif %}
+
+       
+    </div>
+</body>
+</html>

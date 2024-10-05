@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Health Center</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+			background-image: url('/static/background.jpg'); /* Add background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+        }
+
+         .navbar {
+            background-color: rgba(0, 0, 0, 0.5); /* Increased transparency */
+            padding: 1rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 40px; /* Adjust the size as needed */
+            margin-right: 0.5rem;
+        }
+
+        .navbar a {
+            color: white; /* Change all links to white */
+            text-decoration: none;
+            padding: 1rem 1.5rem; /* Increased padding for larger link size */
+            font-size: 1.3rem; /* Increased font size for better visibility */
+            font-weight: bold; /* Make the text bold */
+            transition: background-color 0.3s, color 0.3s; /* Transition effect */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+            color: #fff; /* White text on hover */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h4 {
+            color: #007BFF;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="/static/ProjectLogo.jpeg" alt="Health Center Logo">
+            <a href="#">Health Center</a>
+        </div>
+        <div class="nav-links">
+            <a href="http://localhost:5002/">Home</a>
+			<a href="/healthbot" class="btn btn-light">Chat</a> <!-- Chat Option -->
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h4>Contact Us</h4>
+        <p>Have questions or need assistance? We're here to help!</p>
+
+        <h4>Customer Support</h4>
+        <p>Our dedicated customer support team is available to assist you with any inquiries or issues you may have. Whether it's a technical question, feedback, or a general inquiry, we're just a message away.</p>
+
+        <h4>Get in Touch</h4>
+        <p>Feel free to reach out to us via email or through the contact form below. We value your feedback and are committed to providing you with the best possible experience.</p>
+        <p><b>Email:</b> suneelkumarparvathala@gmail.com</p>
+        <p><b>Phone:</b> 9550558167</p>
+
+        <h4>Stay Connected</h4>
+        <p>Stay up-to-date with the latest news, updates, and health tips by following us on social media. Connect with us on Facebook or Instagram to join our growing community.</p>
+    </div>
+</body>
+</html>

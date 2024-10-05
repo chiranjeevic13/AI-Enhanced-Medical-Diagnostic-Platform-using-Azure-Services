@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Identification</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/61e2MXCw7dAZDg7Wek50C3AlVY1fN3x3wh9kLq" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            background-image: url('/static/background.jpg'); /* Add background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.5); /* Increased transparency */
+            padding: 1rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 40px; /* Adjust the size as needed */
+            margin-right: 0.5rem;
+        }
+
+        .navbar a {
+            color: white; /* Change all links to white */
+            text-decoration: none;
+            padding: 1rem 1.5rem; /* Increased padding for larger link size */
+            font-size: 1.3rem; /* Increased font size for better visibility */
+            font-weight: bold; /* Make the text bold */
+            transition: background-color 0.3s, color 0.3s; /* Transition effect */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+            color: #fff; /* White text on hover */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: blue; /* Change to blue */
+            font-weight: bold; /* Bold text */
+            text-align: center; /* Center text */
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Updated section header colors */
+        section h2 {
+            color: white; /* Change color to white */
+            background-color: #87CEEB; /* Sky blue color */
+            padding: 10px;
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #007bff; /* Changed to blue */
+            color: #ffffff;
+            transition: background-color 0.3s;
+            border: none; /* Removed border */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        /* Additional section colors */
+        section:nth-of-type(odd) {
+            background-color: #e9ecef; /* Light gray for odd sections */
+        }
+
+     
+    </style>
+</head>
+
+<body>
+ <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="/static/ProjectLogo.jpeg" alt="Health Center Logo">
+            <a href="#">Health Center</a>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+			<a href="/healthbot" class="btn btn-light">Chat</a> <!-- Chat Option -->
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+			 
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h1 class="text-center">AI-Medical Imaging and Diagnostic Platform</h1>
+        
+        <!-- Section: Enter Symptoms Directly -->
+        <section>
+            <h2>Enter Symptoms Directly</h2>
+            <form action="/process-symptoms" method="post">
+                <div class="form-group">
+                    <textarea name="symptoms" class="form-control" rows="5" cols="90"  placeholder="Enter your symptoms here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="preferred_language">Preferred Output Language:</label>
+                    <select id="preferred_language" name="preferred_language" class="form-control" required>
+                        <option value="en">English</option>
+                        {% for code, lang in languages.items() %}
+                            <option value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+        
+        <!-- Section: Upload a File -->
+        <section>
+            <h2>Upload a File(Receipts)</h2>
+            <form action="/upload-file" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="file" class="form-control-file" accept=".txt,.pdf,.docx,.pptx,.xlsx,.csv,.json,.xml" required>
+                </div>
+                <div class="form-group">
+                    <label for="preferred_language_file">Preferred Output Language:</label>
+                    <select id="preferred_language_file" name="preferred_language" class="form-control" required>
+                        <option value="en">English</option>
+                        {% for code, lang in languages.items() %}
+                            <option value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload File</button>
+            </form>
+        </section>
+        
+        <!-- Section: Upload an Audio File -->
+        <section>
+            <h2>Upload an Audio File</h2>
+            <form action="/upload-audio" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="audio" class="form-control-file" accept=".wav,.mp3,.m4a" required>
+                </div>
+                <div class="form-group">
+                    <label for="preferred_language_audio">Preferred Output Language:</label>
+                    <select id="preferred_language_audio" name="preferred_language" class="form-control" required>
+                        <option value="en">English</option>
+                        {% for code, lang in languages.items() %}
+                            <option value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Audio</button>
+            </form>
+        </section>
+        
+        <!-- Section: Record Live Audio -->
+        <section>
+            <h2>Record Live Audio</h2>
+            <form id="audio-record-form" action="/record-audio" method="post">
+                <div class="form-group">
+                    <label for="duration">Duration (seconds):</label>
+                    <input type="number" id="duration" name="duration" class="form-control" min="1" max="60" value="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="preferred_language_record">Preferred Output Language:</label>
+                    <select id="preferred_language_record" name="preferred_language" class="form-control" required>
+                        <option value="en">English</option>
+                        {% for code, lang in languages.items() %}
+                            <option value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="startRecording()">Start Recording</button>
+                <button type="button" class="btn btn-danger" onclick="stopRecording()" disabled>Stop Recording</button>
+                <input type="hidden" id="audio_data" name="audio_data">
+            </form>
+            
+            <script>
+                let mediaRecorder;
+                let audioChunks = [];
+                let recording = false;
+                let recordingTimeout;
+
+                function startRecording() {
+                    if (recording) return;
+                    recording = true;
+
+                    navigator.mediaDevices.getUserMedia({ audio: true })
+                        .then(stream => {
+                            mediaRecorder = new MediaRecorder(stream);
+                            mediaRecorder.start();
+                            audioChunks = [];
+
+                            mediaRecorder.ondataavailable = event => {
+                                audioChunks.push(event.data);
+                            };
+
+                            mediaRecorder.onstop = () => {
+                                const audioBlob = new Blob(audioChunks, { 'type' : 'audio/wav; codecs=opus' });
+                                const reader = new FileReader();
+                                reader.readAsDataURL(audioBlob); 
+                                reader.onloadend = function() {
+                                    const base64data = reader.result.split(',')[1];
+                                    document.getElementById('audio_data').value = base64data;
+                                    // Submit the form automatically after recording
+                                    document.getElementById('audio-record-form').submit();
+                                }
+                            };
+
+                            // Disable start button and enable stop button
+                            document.querySelector('button[onclick="startRecording()"]').disabled = true;
+                            document.querySelector('button[onclick="stopRecording()"]').disabled = false;
+
+                            // Automatically stop recording after the specified duration
+                            const duration = parseInt(document.getElementById('duration').value) * 1000;
+                            recordingTimeout = setTimeout(stopRecording, duration);
+                        })
+                        .catch(error => {
+                            console.error("Error accessing microphone:", error);
+                            alert("Could not access your microphone. Please check permissions.");
+                        });
+                }
+
+                function stopRecording() {
+                    if (!recording) return;
+                    recording = false;
+                    clearTimeout(recordingTimeout);
+                    mediaRecorder.stop();
+
+                    // Enable start button and disable stop button
+                    document.querySelector('button[onclick="startRecording()"]').disabled = false;
+                    document.querySelector('button[onclick="stopRecording()"]').disabled = true;
+                }
+            </script>
+        </section>
+        
+        <!-- Section: Upload an Image -->
+        <section>
+            <h2>Upload an Image</h2>
+            <form action="/upload-image" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" class="form-control-file" accept=".jpg,.jpeg,.png,.bmp,.gif" required>
+                </div>
+                <div class="form-group">
+                    <label for="preferred_language_image">Preferred Output Language:</label>
+                    <select id="preferred_language_image" name="preferred_language" class="form-control" required>
+                        <option value="en">English</option>
+                        {% for code, lang in languages.items() %}
+                            <option value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+            </form>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
